@@ -1,0 +1,93 @@
+// Define variables
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$font-stack: Arial, sans-serif;
+
+// Apply styles using variables
+body {
+    font-family: $font-stack;
+    background-color: $primary-color;
+    color: white;
+}
+
+header {
+    background: $secondary-color;
+    padding: 10px;
+    text-align: center;
+}
+
+button {
+    background: $secondary-color;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+}
+
+$base-padding: 10px;
+$double-padding: $base-padding * 2;
+
+.container {
+    padding: $double-padding;
+}
+
+nav {
+    background: #333;
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li {
+            display: inline-block;
+            a {
+                color: white;
+                text-decoration: none;
+                padding: 10px;
+                &:hover {
+                    background: #444;
+                }
+            }
+        }
+    }
+}
+
+@mixin box-shadow($x: 0px, $y: 4px, $blur: 10px, $color: rgba(0, 0, 0, 0.2)) {
+    box-shadow: $x $y $blur $color;
+}
+
+.card {
+    padding: 20px;
+    border-radius: 10px;
+    background: rgb(43, 96, 145);
+    @include box-shadow;
+    
+}
+
+
+@mixin card-style($bg-color: white, $shadow: 5px 5px 15px rgba(0, 0, 0, 0.3)) {
+    background: $bg-color;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: $shadow;
+}
+
+.card-1 {
+    @include card-style(#f1c40f);
+}
+
+.card-2 {
+    @include card-style(#e74c3c, 3px 3px 10px rgba(0, 0, 0, 0.2));
+}
+
+@function contrast-ratio($color1, $color2) {
+    $lightness1: lightness($color1) + 0.05;
+    $lightness2: lightness($color2) + 0.05;
+    @return ($lightness1 / $lightness2);
+}
+
+$ratio: contrast-ratio(#ffffff, #000000);
+
+body {
+    background: #000;
+    color: if($ratio > 4.5, #fff, #ccc);
+}
